@@ -1,5 +1,4 @@
 import { ExtendedQuestion } from '../types';
-import { ProfileType } from '../types';
 
 export const questionPool: ExtendedQuestion[] = [
     // FRONTEND

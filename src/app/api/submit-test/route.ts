@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { calculateProfile } from '@/lib/calculateProfile';
+import { AnswerType, ExtendedQuestion, UserDataType } from '@/types';
 
 const prisma = new PrismaClient();
 
@@ -9,15 +10,10 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
 
         const { userData, answers, questions } = body as {
-            userData: {
-                name: string;
-                email: string;
-                age: string;
-                gender: string;
-            };
-            answers: any;
-            questions: any;
-        };
+            userData: UserDataType;
+            answers: AnswerType[];
+            questions: ExtendedQuestion[];
+        };        
 
         const profile = calculateProfile(answers, questions);
 
