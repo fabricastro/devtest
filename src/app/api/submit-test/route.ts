@@ -1,23 +1,21 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { calculateProfile } from '../../../lib/calculateProfile';
+import { calculateProfile } from '@/lib/calculateProfile';
 
 const prisma = new PrismaClient();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'Method not allowed' });
-    }
-
+export async function POST(req: NextRequest) {
     try {
-        const { userData, answers } = req.body as {
+        const body = await req.json();
+
+        const { userData, answers } = body as {
             userData: {
                 name: string;
                 email: string;
                 age: string;
                 gender: string;
             };
-            answers: any; // Podés tiparlo mejor si sabés la estructura exacta de las respuestas
+            answers: any;
         };
 
         const profile = calculateProfile(answers);
@@ -36,9 +34,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
         });
 
-        res.status(200).json({ id: result.id });
+        return NextResponse.json({ id: result.id }, { status: 200 });
     } catch (error) {
         console.error('Error al guardar el test:', error);
-        res.status(500).json({ message: 'Error al procesar el test' });
+        return NextResponse.json({ message: 'Error al procesar el test' }, { status: 500 });
     }
 }

@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Question from './Question';
 import { questions } from '../lib/questions';
 import { AnswerType, UserDataType } from '../types';
 
 const TestStepper: React.FC = () => {
-    const searchParams = useSearchParams();
+    const router = useRouter();
     const [currentStep, setCurrentStep] = useState<number>(0);
     const [answers, setAnswers] = useState<AnswerType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -18,7 +18,7 @@ const TestStepper: React.FC = () => {
         gender: ''
     });
 
-    const totalSteps = questions.length + 1; // Preguntas + datos personales
+    const totalSteps = questions.length + 1;
 
     const handleOptionSelect = (optionIndex: number): void => {
         const newAnswers = [...answers];

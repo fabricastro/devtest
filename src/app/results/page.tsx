@@ -1,15 +1,11 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Head from 'next/head';
 import ResultCard from '../../components/ResultCard';
 import Link from 'next/link';
-
-type ResultProfile = {
-    primaryProfileName: string;
-    [key: string]: any; // por si hay otros campos adicionales
-};
+import { ProfileResultType } from '../../types';
 
 type ResultData = {
     userData: {
@@ -18,12 +14,12 @@ type ResultData = {
         age: number;
         gender: string;
     };
-    profile: ResultProfile;
+    profile: ProfileResultType;
 };
 
 export default function Results() {
     const searchParams = useSearchParams();
-    const id = searchParams.get("id");
+    const id = searchParams.get('id');
 
     const [result, setResult] = useState<ResultData | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -71,9 +67,25 @@ export default function Results() {
                 <div className="max-w-3xl mx-auto">
                     {loading ? (
                         <div className="text-center py-12">
-                            <svg className="animate-spin mx-auto h-12 w-12 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            <svg
+                                className="animate-spin mx-auto h-12 w-12 text-blue-600"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                ></circle>
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
                             </svg>
                             <p className="mt-4 text-gray-600">Cargando tus resultados...</p>
                         </div>
@@ -91,7 +103,9 @@ export default function Results() {
                             <ResultCard result={result.profile} />
 
                             <div className="mt-8 text-center">
-                                <p className="mb-4 text-gray-700">¿Te gustaron tus resultados? Compártelos con tus amigos o vuelve a realizar el test.</p>
+                                <p className="mb-4 text-gray-700">
+                                    ¿Te gustaron tus resultados? Compártelos con tus amigos o vuelve a realizar el test.
+                                </p>
                                 <div className="flex flex-wrap justify-center gap-4">
                                     <Link href="/" legacyBehavior>
                                         <a className="inline-block bg-blue-600 text-white px-6 py-2.5 rounded-md font-medium hover:bg-blue-700">
