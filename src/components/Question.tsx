@@ -1,8 +1,8 @@
 import React from 'react';
-import { OptionType, QuestionType } from '../types';
+import { OptionType, ExtendedQuestion } from '../types';
 
 interface QuestionProps {
-    question: QuestionType;
+    question: ExtendedQuestion;
     onSelect: (optionIndex: number) => void;
     selectedOptionIndex?: number;
 }
@@ -10,9 +10,9 @@ interface QuestionProps {
 const Question: React.FC<QuestionProps> = ({ question, onSelect, selectedOptionIndex }) => {
     return (
         <div className="mb-8">
-            <h3 className="text-xl font-semibold mb-4">{question.question}</h3>
+            <h3 className="text-xl font-semibold mb-4">{question.pregunta}</h3>
             <div className="space-y-3">
-                {question.options.map((option: OptionType, index: number) => (
+                {question.opciones.map((option: OptionType, index: number) => (
                     <div
                         key={index}
                         className={`p-4 border rounded-lg cursor-pointer transition-all ${selectedOptionIndex === index
@@ -30,3 +30,4 @@ const Question: React.FC<QuestionProps> = ({ question, onSelect, selectedOptionI
 };
 
 export default Question;
+

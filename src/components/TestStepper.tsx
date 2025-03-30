@@ -1,12 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Question from './Question';
-import { questions } from '../lib/questions';
+import { ExtendedQuestion } from '../types';
+import { generarPreguntasAleatorias } from '@/lib/generateQuestions';
 import { AnswerType, UserDataType } from '../types';
 
 const TestStepper: React.FC = () => {
+    useEffect(() => {
+        const preguntas = generarPreguntasAleatorias(2);
+        setQuestions(preguntas);
+      }, []);
+      
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState<number>(0);
     const [answers, setAnswers] = useState<AnswerType[]>([]);
@@ -18,7 +24,9 @@ const TestStepper: React.FC = () => {
         gender: ''
     });
 
+    const [questions, setQuestions] = useState<ExtendedQuestion[]>([]);
     const totalSteps = questions.length + 1;
+
 
     const handleOptionSelect = (optionIndex: number): void => {
         const newAnswers = [...answers];
@@ -71,7 +79,8 @@ const TestStepper: React.FC = () => {
                 },
                 body: JSON.stringify({
                     userData,
-                    answers
+                    answers,
+                    questions
                 }),
             });
 
@@ -191,8 +200,8 @@ const TestStepper: React.FC = () => {
                     onClick={handleBack}
                     disabled={currentStep === 0}
                     className={`px-6 py-2.5 rounded-md font-medium ${currentStep === 0
-                            ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                            : 'bg-white border border-blue-600 text-blue-600 hover:bg-blue-50'
+                        ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                        : 'bg-white border border-blue-600 text-blue-600 hover:bg-blue-50'
                         }`}
                 >
                     Atrás
@@ -202,8 +211,8 @@ const TestStepper: React.FC = () => {
                     onClick={handleNext}
                     disabled={!isCurrentStepComplete() || loading}
                     className={`px-6 py-2.5 rounded-md font-medium transition-all ${isCurrentStepComplete() && !loading
-                            ? 'bg-blue-600 text-white hover:bg-blue-700'
-                            : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                        : 'bg-gray-200 text-gray-500 cursor-not-allowed'
                         }`}
                 >
                     {loading ? (

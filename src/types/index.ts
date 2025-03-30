@@ -36,3 +36,10 @@ export interface ProfileResultType {
     secondaryDescription: string;
     scores: Record<ProfileType, number>;
 }
+
+export interface ExtendedQuestion {
+    id: number;
+    perfil: ProfileType;
+    pregunta: string;
+    opciones: OptionType[];
+  }  

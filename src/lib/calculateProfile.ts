@@ -1,7 +1,6 @@
-import { AnswerType, ProfileResultType, ProfileType } from '../types';
-import { questions } from './questions';
+import { AnswerType, ProfileResultType, ProfileType, ExtendedQuestion } from '../types';
 
-export function calculateProfile(answers: AnswerType[]): ProfileResultType {
+export function calculateProfile(answers: AnswerType[], questions: ExtendedQuestion[]): ProfileResultType {
     // Inicializar puntajes
     const scores: Record<ProfileType, number> = {
         frontend: 0,
@@ -18,9 +17,8 @@ export function calculateProfile(answers: AnswerType[]): ProfileResultType {
         const question = questions.find(q => q.id === answer.questionId);
         if (!question) return;
 
-        const selectedOption = question.options[answer.optionIndex];
+        const selectedOption = question.opciones[answer.optionIndex];
 
-        // Sumar los puntajes de la opción seleccionada
         if (selectedOption && selectedOption.score) {
             Object.entries(selectedOption.score).forEach(([profile, score]) => {
                 const profileKey = profile as ProfileType;
@@ -29,9 +27,9 @@ export function calculateProfile(answers: AnswerType[]): ProfileResultType {
         }
     });
 
-    // Encontrar el perfil con mayor puntaje
+    // Determinar perfiles principales
     let maxScore = 0;
-    let primaryProfile: ProfileType = 'frontend'; // valor por defecto
+    let primaryProfile: ProfileType = 'frontend';
     let secondaryProfile: ProfileType | null = null;
 
     Object.entries(scores).forEach(([profile, score]) => {
@@ -44,16 +42,16 @@ export function calculateProfile(answers: AnswerType[]): ProfileResultType {
         }
     });
 
-    // Asegurar que siempre tengamos un perfil secundario
+    // Garantizar secundario distinto
     if (!secondaryProfile) {
         secondaryProfile = Object.entries(scores)
             .filter(([profile]) => profile !== primaryProfile)
-            .sort(([, scoreA], [, scoreB]) => scoreB - scoreA)[0]?.[0] as ProfileType;
+            .sort(([, a], [, b]) => b - a)[0]?.[0] as ProfileType;
 
         if (!secondaryProfile) secondaryProfile = primaryProfile;
     }
 
-    // Mapeo de perfiles a nombres más amigables
+    // Etiquetas de perfiles
     const profileNames: Record<ProfileType, string> = {
         frontend: "Desarrollador Frontend",
         backend: "Desarrollador Backend",
@@ -64,7 +62,6 @@ export function calculateProfile(answers: AnswerType[]): ProfileResultType {
         design: "Diseñador UI/UX"
     };
 
-    // Mapeo de perfiles a descripciones
     const profileDescriptions: Record<ProfileType, string> = {
         frontend: "Tienes un fuerte interés en crear experiencias visuales atractivas e interfaces de usuario. Tu perfil indica una inclinación hacia el desarrollo frontend, donde puedes combinar habilidades técnicas con creatividad.",
         backend: "Te destacas en el pensamiento lógico y la resolución de problemas complejos. Tu perfil sugiere que disfrutarías trabajando en sistemas y arquitecturas de backend, desarrollando la lógica que hace funcionar las aplicaciones.",

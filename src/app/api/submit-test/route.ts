@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
 
-        const { userData, answers } = body as {
+        const { userData, answers, questions } = body as {
             userData: {
                 name: string;
                 email: string;
@@ -16,9 +16,10 @@ export async function POST(req: NextRequest) {
                 gender: string;
             };
             answers: any;
+            questions: any;
         };
 
-        const profile = calculateProfile(answers);
+        const profile = calculateProfile(answers, questions);
 
         const result = await prisma.testResult.create({
             data: {

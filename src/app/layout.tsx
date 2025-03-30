@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DevTest",
   description: "Test de Perfil IT, Descubre qué rol en tecnología se adapta mejor a tu personalidad, habilidades e intereses",
+  icons:
+  {
+    icon: '/faviconDev.svg',
+  }
 };
 
 export default function RootLayout({

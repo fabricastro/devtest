@@ -1,5 +1,5 @@
-import { ExtendedQuestion } from './questions';
-import { questionPool } from '../data/questionPool';
+import { ExtendedQuestion } from '../types';
+import { questionPool } from './questions';
 import { ProfileType } from '../types';
 
 // Función para mezclar un array (Fisher-Yates)
