@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,10 +68,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/faviconDev.svg',
-    apple: '/faviconDev.svg', 
+    apple: '/faviconDev.svg',
   },
   verification: {
-    google: 'google-site-verification=1kKxVKBfqiZhz93r3E-8qt8i-svjrPNVf-c-zts-dFc', // Add your Google verification code
+    google: 'google-site-verification=1kKxVKBfqiZhz93r3E-8qt8i-svjrPNVf-c-zts-dFc',
   },
 };
 
@@ -81,10 +82,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <Analytics />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <footer className="bg-gray-100 py-6">
+          <div className="container mx-auto px-4 text-center text-gray-600">
+            <p>© 2025 Test de Perfil IT. Hecho con ❤️ por <a href="https://www.instagram.com/fabri.code/">fabricastro</a>.</p>
+          </div>
+        </footer>
       </body>
     </html>
   );

@@ -104,7 +104,8 @@ export default function Results() {
 
                             <div className="mt-8 text-center">
                                 <p className="mb-4 text-gray-700">
-                                    ¿Te gustaron tus resultados? Compártelos con tus amigos o vuelve a realizar el test.
+                                    ¿Te gustaron tus resultados? Compártelos con tus amigos o vuelve a realizar el test. <br />
+                                    Te enviamos un correo con tus resultados y recomendaciones personalizadas(Revisa tu bandeja de entrada o spam).
                                 </p>
                                 <div className="flex flex-wrap justify-center gap-4">
                                     <Link href="/" legacyBehavior>
@@ -144,12 +145,6 @@ export default function Results() {
                     )}
                 </div>
             </main>
-
-            <footer className="bg-gray-100 py-6 mt-12">
-                <div className="container mx-auto px-4 text-center text-gray-600">
-                    <p>© 2025 Test de Perfil IT. Todos los derechos reservados.</p>
-                </div>
-            </footer>
         </div>
     );
 }
