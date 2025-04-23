@@ -41,7 +41,6 @@ export async function POST(req: NextRequest) {
         const emailResult = await sendResultsEmail(
             userData.email,
             profile,
-            imageUrl,
             testUrl
         );
 

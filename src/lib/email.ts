@@ -14,7 +14,6 @@ const transporter = nodemailer.createTransport({
 export async function sendResultsEmail(
   to: string,
   results: ProfileResultType,
-  imageUrl: string,
   testUrl: string
 ) {
   const mailOptions = {

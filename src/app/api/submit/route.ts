@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     const imageUrl = await generateResultsImage(results);
 
     // Enviar el email
-    const emailResult = await sendResultsEmail(email, results, imageUrl);
+    const emailResult = await sendResultsEmail(email, results, email);
 
     if (!emailResult.success) {
       throw new Error('Error al enviar el email');
