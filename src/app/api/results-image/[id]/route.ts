@@ -17,9 +17,10 @@ const profileNames: Record<string, string> = {
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { id: string } } // Cambiado para usar destructuración directa
+    context: { params: { id: string } }
 ) {
-    const { id } = params;
+    const { id } = context.params;
+
     try {
         const result = await prisma.testResult.findUnique({
             where: { id }
@@ -89,10 +90,10 @@ export async function GET(
                             <div>
                                 <h3 style="font-size: 20px; margin-bottom: 16px;">Distribución de tus habilidades:</h3>
                                 ${Object.entries(scores)
-                                    .map(([area, score]) => {
-                                        if (score === 0) return '';
-                                        const percentage = Math.min(100, (score / 30) * 100);
-                                        return `
+                .map(([area, score]) => {
+                    if (score === 0) return '';
+                    const percentage = Math.min(100, (score / 30) * 100);
+                    return `
                                             <div style="margin-bottom: 12px;">
                                                 <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
                                                     <span style="color: #4b5563;">${profileNames[area]}</span>
@@ -103,8 +104,8 @@ export async function GET(
                                                 </div>
                                             </div>
                                         `;
-                                    })
-                                    .join('')}
+                })
+                .join('')}
                             </div>
                         </div>
                     </div>
