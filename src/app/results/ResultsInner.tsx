@@ -56,7 +56,7 @@ export default function Results() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="container mx-auto py-12 px-4">
+            <main className="container items-center justify-center mx-auto py-12 px-4">
                 <div className="text-center mb-12">
                     <h1 className="text-4xl font-bold text-blue-800 mb-4">Tus Resultados</h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -147,7 +147,7 @@ export default function Results() {
 
             <footer className="bg-gray-100 py-6 mt-12">
                 <div className="container mx-auto px-4 text-center text-gray-600">
-                    <p>© 2024 Test de Perfil IT. Todos los derechos reservados.</p>
+                    <p>© 2025 Test de Perfil IT. Todos los derechos reservados.</p>
                 </div>
             </footer>
         </div>
